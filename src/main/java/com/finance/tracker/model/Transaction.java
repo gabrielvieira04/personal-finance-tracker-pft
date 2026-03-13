@@ -7,23 +7,26 @@ public class Transaction {
     private String description;
     private LocalDate date;
     private TransactionType type;
+    private Category transactionCategory;
     
     //Opçao de construtor caso a transacao tenha um dia
-    public Transaction (int id, double value, String description, LocalDate date, TransactionType type) {
+    public Transaction (int id, double value, String description, LocalDate date, TransactionType type, Category transactionCategory) {
         this.id = id;
         this.value = value;
         this.description = description;
         this.date = date;
         this.type = type;
+        this.transactionCategory = transactionCategory;
     }
     
     //Opcao caso seja no mesmo dia.
-    public Transaction (int id, double value, String description, TransactionType type) {
+    public Transaction (int id, double value, String description, TransactionType type, Category transactionCategory) {
         this.id = id;
         this.value = value;
         this.description = description;
         this.date = LocalDate.now();
         this.type = type;
+        this.transactionCategory = transactionCategory;
     }
 
 
@@ -59,6 +62,17 @@ public class Transaction {
     public void setType(TransactionType type) {
         this.type = type;
     }
+
+    public Category getTransactionCategory() {
+        return transactionCategory;
+    }
+
+    public void setTransactionCategory(Category transactionCategory) {
+        this.transactionCategory = transactionCategory;
+    }
+
+    
+
 
     
 
