@@ -20,7 +20,7 @@ public class CategoryService {
     public void addCategory(Category category) {
         for (Category existing : getAllCategory()) {
             if (existing.getId() == category.getId()) {
-                throw new IllegalArgumentException("Ja existe uma categoria registrada com ID: " + category.getName());
+                throw new IllegalArgumentException("Ja existe uma categoria registrada com ID: " + existing.getId());
             } else if (existing.getName().equalsIgnoreCase(category.getName())) {
                 throw new IllegalArgumentException("Ja existe uma categoria com esse nome: " + existing.getName());
             }
