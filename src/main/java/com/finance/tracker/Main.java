@@ -9,8 +9,9 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        TransactionRepository repository = new InMemoryTransactionRepository();
-        TransactionService service = new TransactionService(repository);
+        TransactionRepository transactionRepository = new InMemoryTransactionRepository();
+        TransactionService transactionService = new TransactionService(transactionRepository);
+        CategoryRepository categoryRepository = new InMemoryCategoryRepository();
 
         while (true) {
             int mainMenu;
