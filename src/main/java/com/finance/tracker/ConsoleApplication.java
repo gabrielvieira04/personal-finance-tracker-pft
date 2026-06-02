@@ -5,7 +5,7 @@ import com.finance.tracker.model.*;
 import com.finance.tracker.repository.*;
 import com.finance.tracker.service.*;
 
-public class Main {
+public class ConsoleApplication {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
