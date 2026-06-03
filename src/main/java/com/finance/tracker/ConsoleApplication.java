@@ -15,6 +15,9 @@ public class ConsoleApplication {
         CategoryRepository categoryRepository = new InMemoryCategoryRepository();
         CategoryService categoryService = new CategoryService(categoryRepository);
 
+        categoryService.addCategory(new Category("Salario", 1, TransactionType.REVENUE));
+        categoryService.addCategory(new Category("Alimentação", 2, TransactionType.EXPENSES));
+
         while (true) {
             int mainMenu;
             System.out.println("=== Rastreador de Finanças Pessoais ===");
@@ -49,8 +52,46 @@ public class ConsoleApplication {
                                         throw new IllegalArgumentException(
                                                 "A opção desejada não é válida. Por favor, tente novamente.");
                                     }
-                                    TransactionType type = (option == 1) ? TransactionType.REVENUE
+                                    TransactionType selectedType = (option == 1) ? TransactionType.REVENUE
                                             : TransactionType.EXPENSES;
+
+                                    System.out.println("Escolha uma categoria para a transação.");
+                                    System.out.println("Lista de Categorias Disponiveis.");
+
+                                    List<Category> categories = categoryService.getAllCategory();
+                                    for (Category c : categories) {
+                                        if (c.getType() == selectedType) {
+                                            System.out.println("  " + c.getId() + " - " + c.getName() + " ("
+                                                    + (c.getType() == TransactionType.REVENUE ? "Receita" : "Despesa")
+                                                    + ")");
+                                        }
+
+                                    }
+
+                                    System.out.println("Digite o ID da categoria escolhida");
+                                    int catId = Integer.parseInt(sc.nextLine());
+
+                                    Category selectedCategory = null;
+
+                                    for (Category c : categories) {
+                                        if (c.getId() == catId) {
+                                            selectedCategory = c;
+                                            break;
+                                        }
+                                    }
+
+                                    if (selectedCategory == null) {
+                                        throw new IllegalArgumentException("ID DA CATEGORIA NÃO ENCONTRADO");
+                                    }
+                                    if (selectedCategory.getType() !=  selectedType ) {
+                                        throw new IllegalArgumentException("A categoria escolhida não corresponde ao tipo de transação, tente novamente.");
+                                    }
+
+                                    transactionService.addTransaction(new Transaction(id, value, desc, selectedType, selectedCategory)); 
+                                    System.out.println("A transação foi salva com sucesso!");            
+                                    
+                                    newTransaction = true;
+
                                 } catch (Exception e) {
                                     System.out.println("\nErro: " + e.getMessage() + " Tente novamente.");
                                 }
