@@ -83,13 +83,15 @@ public class ConsoleApplication {
                                     if (selectedCategory == null) {
                                         throw new IllegalArgumentException("ID DA CATEGORIA NÃO ENCONTRADO");
                                     }
-                                    if (selectedCategory.getType() !=  selectedType ) {
-                                        throw new IllegalArgumentException("A categoria escolhida não corresponde ao tipo de transação, tente novamente.");
+                                    if (selectedCategory.getType() != selectedType) {
+                                        throw new IllegalArgumentException(
+                                                "A categoria escolhida não corresponde ao tipo de transação, tente novamente.");
                                     }
 
-                                    transactionService.addTransaction(new Transaction(id, value, desc, selectedType, selectedCategory)); 
-                                    System.out.println("A transação foi salva com sucesso!");            
-                                    
+                                    transactionService.addTransaction(
+                                            new Transaction(id, value, desc, selectedType, selectedCategory));
+                                    System.out.println("A transação foi salva com sucesso!");
+
                                     newTransaction = true;
 
                                 } catch (Exception e) {
@@ -98,6 +100,33 @@ public class ConsoleApplication {
                             }
                             break;
                         case 2:
+                            boolean newCategory = false;
+                            while (!newCategory) {
+                                try {
+                                    System.out.println("Cadastrar nova categoria: \n");
+                                    System.out.println("Digite o ID da categoria: ");
+                                    int catId = Integer.parseInt(sc.nextLine());
+
+                                    System.out.println("Informe o nome da categoria: ");
+                                    String catName = sc.nextLine();
+
+                                    System.out.print("Qual o tipo de Transação? (1 - Receita, 2 - Despesa): ");
+                                    int option = Integer.parseInt(sc.nextLine());
+                                    if (option != 1 && option != 2) {
+                                        throw new IllegalArgumentException(
+                                                "A opção desejada não é válida. Por favor, tente novamente.");
+                                    }
+                                    TransactionType selectedType = (option == 1) ? TransactionType.REVENUE
+                                            : TransactionType.EXPENSES;
+
+                                    categoryService.addCategory(new Category(catName, catId, selectedType));
+                                    System.out.println("A categoria foi salva com sucesso !");
+                                    newCategory = true;
+                                } catch (Exception e) {
+                                    System.out.println("\nErro: " + e.getMessage() + " Tente novamente.");
+                                }
+
+                            }
                             break;
                         case 3:
                             break;
