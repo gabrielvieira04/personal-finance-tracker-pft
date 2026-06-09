@@ -21,7 +21,7 @@ public class InMemoryTransactionRepository implements TransactionRepository {
 
     @Override
     public void update(Transaction transaction) {
-        for (int i = 0; i <= transactions.size(); i++) {
+        for (int i = 0; i < transactions.size(); i++) {
             if (transactions.get(i).getId() == transaction.getId()) {
                 transactions.set(i, transaction);
             }

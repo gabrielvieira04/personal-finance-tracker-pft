@@ -22,7 +22,7 @@ public class InMemoryCategoryRepository implements CategoryRepository {
 
     @Override
     public void update(Category category) {
-        for (int i = 0; i <= categoryList.size(); i++){
+        for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).getId() == category.getId()) {
                 categoryList.set(i, category);
             }
