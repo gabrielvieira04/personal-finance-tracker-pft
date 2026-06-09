@@ -20,4 +20,19 @@ public class InMemoryCategoryRepository implements CategoryRepository {
         return categoryList;
     }
 
+    @Override
+    public void update(Category category) {
+        for (int i = 0; i <= categoryList.size(); i++){
+            if (categoryList.get(i).getId() == category.getId()) {
+                categoryList.set(i, category);
+            }
+        }
+
+    }
+
+    @Override
+    public void deleteById(int id) {
+        categoryList.removeIf(c -> c.getId() == id);
+    }
+
 }
