@@ -18,7 +18,8 @@ public class ConsoleApplication {
         categoryService.addCategory(new Category("Salario", 1, TransactionType.REVENUE));
         categoryService.addCategory(new Category("Alimentação", 2, TransactionType.EXPENSES));
 
-        while (true) {
+        boolean exitMainMenu = false;
+        while (!exitMainMenu) {
             int mainMenu;
             System.out.println("=== Rastreador de Finanças Pessoais ===");
             System.out.println("1. Adicionar Transação (Receita/Despesa)");
@@ -129,10 +130,29 @@ public class ConsoleApplication {
                             }
                             break;
                         case 3:
+                            System.out.println("\n=== Lista de Transações ===");
+                            if (transactionService.getAllTransactions().isEmpty()) {
+                                System.out.println("Nenhuma transação cadastrada até o momento!");
+                            } else {
+                                for (Transaction currentTransaction : transactionService.getAllTransactions()) {
+                                    System.out.println(currentTransaction);
+                                    System.out.println("--------------------------------");
+                                }
+                            }
                             break;
                         case 4:
+                            System.out.println("\n=== Resumo de Finanças ===");
+                            if (transactionService.getAllTransactions().isEmpty()) {
+                                System.out.println("Nenhuma transação cadastrada até o momento!");
+                            } else {
+                                System.out.println("Total de Receita: " + transactionService.calculateAllRevenue());
+                                System.out.println("Total de Gastos: " + transactionService.calculateAllExpenses());
+                                System.out.println("Saldo Liquido: " + transactionService.calculateBalance());
+                            }
                             break;
                         case 5:
+                            System.out.println("Finalizando aplicação ! Agradecemos a preferencia.");
+                            exitMainMenu = true;
                             break;
                     }
                 } else {
