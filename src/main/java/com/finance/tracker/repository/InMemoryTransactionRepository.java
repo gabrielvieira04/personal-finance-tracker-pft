@@ -7,11 +7,15 @@ public class InMemoryTransactionRepository implements TransactionRepository {
 
     private List<Transaction> transactions = new ArrayList<>();
 
-    public void save (Transaction transaction){
-        transactions.add(transaction);
-    }
+   @Override
+   public void save(Transaction transaction) {
+       transactions.add(transaction);
+       
+   }
     
-    public List<Transaction> findAll (){
+    
+    @Override
+    public List<Transaction> findAll() {
         return transactions;
     }
 

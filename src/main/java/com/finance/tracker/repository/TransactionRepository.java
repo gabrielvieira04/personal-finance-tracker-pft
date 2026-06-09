@@ -11,6 +11,6 @@ public interface TransactionRepository {
 
     void update(Transaction transaction);
 
-    void deleById(int id);
+    void deleteById(int id);
 
 }
