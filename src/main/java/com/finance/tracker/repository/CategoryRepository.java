@@ -9,4 +9,8 @@ public interface CategoryRepository {
 
     List<Category> findAll();
 
+    void update(Category category);
+
+    void deleById(int id);
+
 }
