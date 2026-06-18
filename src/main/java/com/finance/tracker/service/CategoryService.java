@@ -3,6 +3,7 @@ package com.finance.tracker.service;
 import java.util.List;
 
 import com.finance.tracker.model.Category;
+import com.finance.tracker.model.Transaction;
 import com.finance.tracker.repository.CategoryRepository;
 
 public class CategoryService {
@@ -49,6 +50,30 @@ public class CategoryService {
         }
 
         categoryRepository.update(category);
+
+    }
+
+    public void deleteCategory(int id, List<Transaction> transactions) {
+        boolean exists = false;
+
+        for (Category existing : getAllCategory()) {
+            if (id == existing.getId()) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            throw new IllegalArgumentException("Categoria não encontrada");
+        }
+
+        for (Transaction t : transactions) {
+            if (t.getTransactionCategory() != null && t.getTransactionCategory().getId() == id) {
+                throw new IllegalArgumentException(
+                        "Não é possivel deletar uma categoria que esta vinculada a uma transação.");
+            }
+        }
+
+        categoryRepository.deleteById(id);
 
     }
 

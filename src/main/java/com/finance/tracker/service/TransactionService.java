@@ -72,4 +72,21 @@ public class TransactionService {
         repository.update(transaction);
     }
 
+    public void deleteTransaction(int id) {
+        boolean exists = false;
+
+        for (Transaction existing : getAllTransactions()) {
+            if (id == existing.getId()) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            throw new IllegalArgumentException("A transação indicada não existe");
+        }
+
+        repository.deleteById(id);
+    }
+
 }
