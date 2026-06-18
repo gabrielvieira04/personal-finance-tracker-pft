@@ -53,4 +53,23 @@ public class TransactionService {
         return balance;
     }
 
+    public void updateTransaction(Transaction transaction) {
+        if (transaction.getValue() <= 0) {
+            throw new IllegalArgumentException("O valor da transação deve ser maior que zero.");
+        }
+
+        boolean exists = false;
+
+        for (Transaction existing : getAllTransactions()) {
+            if (transaction.getId() == existing.getId()) {
+                exists = true;
+                break;
+            }
+        }
+        if (!exists) {
+            throw new IllegalArgumentException("A transação não existe ou não pode ser encontrada");
+        }
+        repository.update(transaction);
+    }
+
 }

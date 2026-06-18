@@ -28,4 +28,28 @@ public class CategoryService {
         categoryRepository.saveCategory(category);
     }
 
+    public void updateCategory(Category category) {
+        boolean exists = false;
+
+        for (Category existing : getAllCategory()) {
+            if (category.getId() == existing.getId()) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (!exists) {
+            throw new IllegalArgumentException("Categoria não encontrada");
+        }
+
+        for (Category existing : getAllCategory()) {
+            if (existing.getId() != category.getId() && existing.getName().equalsIgnoreCase(category.getName())) {
+                throw new IllegalArgumentException("Já existe uma categoria com esse nome");
+            }
+        }
+
+        categoryRepository.update(category);
+
+    }
+
 }
